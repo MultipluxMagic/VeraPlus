@@ -1105,6 +1105,10 @@ if (chromeless == ud) {
         roots.style.setProperty("--MENUCHECKBOXCOLORTWO", "rgb(200, 200, 200)");
         roots.style.setProperty("--TODOLISTBORDER", "rgb(200, 200, 200)");
         roots.style.setProperty("--TODOBUTTON", "rgb(242, 242, 242)");
+        roots.style.setProperty("--OTHERMENUDIVBORDER", "#d7d7d7");
+        roots.style.setProperty("--SPECIALCELL", "rgb(240, 240, 240)");
+        roots.style.setProperty("--ASSIGNMENTINPUTS", "rgb(240, 240, 240)");
+        roots.style.setProperty("--ASSIGNMENTBOX", "rgb(230, 230, 230)");
       } else {
         roots.style.setProperty("--MENUBACKGROUND", "#0f0f10");
         roots.style.setProperty("--MENUDIVBACKGROUND", "#1c1c1e");
@@ -1120,6 +1124,10 @@ if (chromeless == ud) {
         roots.style.setProperty("--MENUCHECKBOXCOLORTWO", "#555555");
         roots.style.setProperty("--TODOLISTBORDER", "#4f4f4f");
         roots.style.setProperty("--TODOBUTTON", "rgb(50, 50, 50)");
+        roots.style.setProperty("--OTHERMENUDIVBORDER", "#4f4f4f");
+        roots.style.setProperty("--SPECIALCELL", "rgb(23, 23, 23)");
+        roots.style.setProperty("--ASSIGNMENTINPUTS", "rgb(32,32,32)");
+        roots.style.setProperty("--ASSIGNMENTBOX", "#0f0f10");
       }
     });
   };
@@ -1144,6 +1152,10 @@ if (chromeless == ud) {
         roots.style.setProperty("--MENUCHECKBOXCOLORTWO", "rgb(200, 200, 200)");
         roots.style.setProperty("--TODOLISTBORDER", "rgb(200, 200, 200)");
         roots.style.setProperty("--TODOBUTTON", "rgb(242, 242, 242)");
+        roots.style.setProperty("--OTHERMENUDIVBORDER", "#d7d7d7");
+        roots.style.setProperty("--SPECIALCELL", "rgb(240, 240, 240)");
+        roots.style.setProperty("--ASSIGNMENTINPUTS", "rgb(240, 240, 240)");
+        roots.style.setProperty("--ASSIGNMENTBOX", "rgb(230, 230, 230)");
       } else {
         roots.style.setProperty("--MENUBACKGROUND", "#0f0f10");
         roots.style.setProperty("--MENUDIVBACKGROUND", "#1c1c1e");
@@ -1159,6 +1171,10 @@ if (chromeless == ud) {
         roots.style.setProperty("--MENUCHECKBOXCOLORTWO", "#555555");
         roots.style.setProperty("--TODOLISTBORDER", "#4f4f4f");
         roots.style.setProperty("--TODOBUTTON", "rgb(50, 50, 50)");
+        roots.style.setProperty("--OTHERMENUDIVBORDER", "#4f4f4f");
+        roots.style.setProperty("--SPECIALCELL", "rgb(23, 23, 23)");
+        roots.style.setProperty("--ASSIGNMENTINPUTS", "rgb(32, 32, 32)");
+        roots.style.setProperty("--ASSIGNMENTBOX", "#0f0f10");
       }
       vpdmi.checked = result.menuMode;
     }
@@ -1267,12 +1283,32 @@ if (chromeless == ud) {
     toDoApp
   );
 
+  // THANK YOU TO https://stackoverflow.com/questions/43008354/get-all-days-of-the-week-given-a-day FOR SAVING THE ASSIGNMENT PLANNER
+
+  var date_array;
+  var current_date;
+  function dates(current) {
+    var week= new Array(); 
+    // Starting Monday not Sunday
+    current.setDate((current.getDate() - current.getDay() +1));
+
+    for (var i = 0; i < 5; i++) {
+        week.push(
+            [new Date(current).getMonth(), new Date(current).getDate(), new Date(current).getFullYear()]
+        ); 
+        current.setDate(current.getDate() +1);
+    }
+    date_array = week
+  }
+  current_date = new Date()
+  dates(current_date)
+
   let assignment_date = new Date(),
     day = assignment_date.getDay(),
     dat = assignment_date.getDate(),
     dat_month = assignment_date.getMonth(),
     dat_year = assignment_date.getFullYear();
-
+    
   let assignment_date_update = function () {
     let dat_mon = dat - (day - 1),
       dat_tues = dat - (day - 2),
@@ -1438,161 +1474,15 @@ if (chromeless == ud) {
     assignmentArrowDiv
   );
 
-  let all_assignments =  {}
-  chrome.storage.local.get(["ASSIGNEMNTSSTORAGE"]).then((result) => { 
-    if (result.ASSIGNEMNTSSTORAGE != ud) {
-      all_assignments = result.ASSIGNEMNTSSTORAGE
-      let dat_max;
-      const calculate_month = function () {
-        if (
-          dat_month == 0 ||
-          dat_month == 2 ||
-          dat_month == 4 ||
-          dat_month == 6 ||
-          dat_month == 7 ||
-          dat_month == 9 ||
-          dat_month == 11
-        ) {
-          dat_max = 31;
-        } else if (
-          dat_month == 3 ||
-          dat_month == 5 ||
-          dat_month == 8 ||
-          dat_month == 10
-        ) {
-          dat_max = 30;
-        } else if (dat_month == 1) {
-          if (dat_year % 4 == 0) {
-            dat_max = 29;
-          } else {
-            dat_max = 28;
-          }
-        }
-      };
-      calculate_month();
-      for (let i = 0; i < Object.keys(all_assignments).length; i++) {
-        if (all_assignments[Object.keys(all_assignments)[i]][2] > dat_max) {
-          all_assignments[Object.keys(all_assignments)[i]][2] -= dat_max
-        }
-        if (all_assignments[Object.keys(all_assignments)[i]][1] == dat_month && dat_array[all_assignments[Object.keys(all_assignments)[i]][5]-1] == all_assignments[Object.keys(all_assignments)[i]][2] && all_assignments[Object.keys(all_assignments)[i]][3] == dat_year) {
-          var create_new_assignment_box = create_element(
-            element_types[1],
-            selectors[1],
-            "create_new_assignment_box",
-            all_assignments[Object.keys(all_assignments)[i]][6],
-            Array.from(document.getElementById("assignmentCellDiv").children)[((all_assignments[Object.keys(all_assignments)[i]][4]-1)*6)+all_assignments[Object.keys(all_assignments)[i]][5]]
-          );
-          create_new_assignment_box.addEventListener('click', function(stop_others) {
-            stop_others.stopPropagation();
-            var this_box = this
-            var create_new_assignment_overlay = create_element(
-              element_types[1],
-              selectors[1],
-              "new-assignment-overlay",
-              ud,
-              calenderScreenVar
-            );
-            var create_new_assignment = create_element(
-              element_types[1],
-              selectors[1],
-              "new-pop-up-assignment",
-              ud,
-              calenderScreenVar
-            );
-            var new_assignment_label = create_element(
-              element_types[11],
-              selectors[1],
-              "assignment-pop-up-label",
-              this.innerHTML,
-              create_new_assignment 
-            );
-            var look_for_assignment = Array.from(document.getElementsByClassName("create_new_assignment_box"));
-            var look_for_assignment_parent = this.parentElement;
-            var look_for_assignment_pos = Array.from(look_for_assignment_parent.parentElement.children).indexOf(look_for_assignment_parent)
-            var look_for_assignment_description;
-            for (let i = 0; i < Object.keys(all_assignments).length; i++) {
-              if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7])  {
-                look_for_assignment_description = all_assignments[i+1][0]
-              }
-            }
-            var new_assignment_description = create_element(
-              element_types[11],
-              selectors[1],
-              "assignment-pop-up-description",
-              look_for_assignment_description,
-              create_new_assignment 
-            );
-            var delete_new_assignment = create_element(
-              element_types[7],
-              selectors[1],
-              "assignment-pop-up-delete",
-              "Delete",
-              create_new_assignment 
-            );
-            delete_new_assignment.addEventListener('click', () => { 
-              var look_for_assignment_parent = this_box.parentElement;
-              var look_for_assignment_pos = Array.from(look_for_assignment_parent.parentElement.children).indexOf(look_for_assignment_parent)
-              for (let i = 0; i < Object.keys(all_assignments).length; i++) {
-                if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7])  {
-                  this_box.remove()
-                  delete all_assignments[i+1] 
-                  for (let a = 1; a < Object.keys(all_assignments).length+1; a++) {
-                    if (a > i) {
-                      all_assignments[a] = all_assignments[a+1];
-                      delete all_assignments[a+1];
-                    }
-                  }
-                }
-              chrome.storage.local.set({'ASSIGNEMNTSSTORAGE': all_assignments}).then(() => {});
-              let delete_assigment = document.getElementsByClassName("new-pop-up-assignment");
-              for (let i = 0; i < delete_assigment.length; i++) {
-                delete_assigment[i].remove();
-              }
-              delete_assigment = Array.from(document.getElementsByClassName("new-assignment-overlay"));
-              if (delete_assigment.length != 0) {
-                delete_assigment[0].remove();
-              }
-            }
-          })
-            var close_new_assignment = create_element(
-              element_types[7],
-              selectors[1],
-              "assignment-pop-up-button",
-              "\u00d7",
-              create_new_assignment 
-            );
-            close_new_assignment.addEventListener('click', () => {
-              let delete_assigment = document.getElementsByClassName("new-pop-up-assignment");
-              for (let i = 0; i < delete_assigment.length; i++) {
-                delete_assigment[i].remove();
-              }
-              delete_assigment = document.getElementsByClassName(
-                "new-assignment-overlay"
-              );
-              delete_assigment[0].remove();
-            })
-          })
+  const updateAp = function() {
+    for (let i = 0; i < Object.keys(all_assignments).length; i++) {
+      let is_true = false;
+      for (let k = 0; k < date_array.length; k++) {
+        if (all_assignments[Object.keys(all_assignments)[i]][1] == date_array[k][0] &&  date_array[k][1] == all_assignments[Object.keys(all_assignments)[i]][2] && all_assignments[Object.keys(all_assignments)[i]][3] == date_array[k][2]) {
+          is_true = true
         }
       }
-    }
-  })
-  
-
-
-  assignmentFrontArrow.addEventListener("click", () => {
-    dat = dat + 7;
-    assignment_date_update();
-    assignmentDaysMon.innerHTML = "Monday \n" + dat_array[0];
-    assignmentDaysTue.innerHTML = "Tuesday \n" + dat_array[1];
-    assignmentDaysWed.innerHTML = "Wednesday \n" + dat_array[2];
-    assignmentDaysThu.innerHTML = "Thursday \n" + dat_array[3];
-    assignmentDaysFri.innerHTML = "Friday \n" + dat_array[4];
-    let delete_assignment_boxes = Array.from(document.getElementsByClassName("create_new_assignment_box"))
-    for (let i = 0; i < delete_assignment_boxes.length; i++) {
-      delete_assignment_boxes[i].remove()
-    }
-    for (let i = 0; i < Object.keys(all_assignments).length; i++) {
-      if (all_assignments[Object.keys(all_assignments)[i]][1] == dat_month && dat_array[all_assignments[Object.keys(all_assignments)[i]][5]-1] == all_assignments[Object.keys(all_assignments)[i]][2] && all_assignments[Object.keys(all_assignments)[i]][3] == dat_year) {
+      if (is_true) {
         var create_new_assignment_box = create_element(
           element_types[1],
           selectors[1],
@@ -1661,7 +1551,7 @@ if (chromeless == ud) {
                   }
                 }
               }
-            chrome.storage.local.set({'ASSIGNEMNTSSTORAGE': all_assignments}).then(() => {});
+            chrome.storage.local.set({'ASSIGNEMNTSSTORAGES': all_assignments}).then(() => {});
             let delete_assigment = document.getElementsByClassName("new-pop-up-assignment");
             for (let i = 0; i < delete_assigment.length; i++) {
               delete_assigment[i].remove();
@@ -1692,11 +1582,37 @@ if (chromeless == ud) {
         })
       }
     }
+  }
+  let all_assignments =  {}
+  chrome.storage.local.get(["ASSIGNEMNTSSTORAGES"]).then((result) => { 
+    if (result.ASSIGNEMNTSSTORAGES != ud) {
+      all_assignments = result.ASSIGNEMNTSSTORAGES
+      updateAp()
+    }
+  })
+  
+  assignmentFrontArrow.addEventListener("click", () => {
+    dat = dat + 7;
+    assignment_date_update();
+    current_date = new Date(current_date.getTime() + 7 * 24 * 60 * 60 * 1000)
+    dates(current_date)  
+    assignmentDaysMon.innerHTML = "Monday \n" + dat_array[0];
+    assignmentDaysTue.innerHTML = "Tuesday \n" + dat_array[1];
+    assignmentDaysWed.innerHTML = "Wednesday \n" + dat_array[2];
+    assignmentDaysThu.innerHTML = "Thursday \n" + dat_array[3];
+    assignmentDaysFri.innerHTML = "Friday \n" + dat_array[4];
+    let delete_assignment_boxes = Array.from(document.getElementsByClassName("create_new_assignment_box"))
+    for (let i = 0; i < delete_assignment_boxes.length; i++) {
+      delete_assignment_boxes[i].remove()
+    }
+    updateAp()
   });
 
   assignmentBackArrow.addEventListener("click", () => {
     dat = dat - 7;
     assignment_date_update();
+    current_date = new Date(current_date.getTime() - 7 * 24 * 60 * 60 * 1000)
+    dates(current_date)  
     assignmentDaysMon.innerHTML = "Monday \n" + dat_array[0];
     assignmentDaysTue.innerHTML = "Tuesday \n" + dat_array[1];
     assignmentDaysWed.innerHTML = "Wednesday \n" + dat_array[2];
@@ -1706,107 +1622,7 @@ if (chromeless == ud) {
     for (let i = 0; i < delete_assignment_boxes.length; i++) {
       delete_assignment_boxes[i].remove()
     }
-    for (let i = 0; i < Object.keys(all_assignments).length; i++) {
-      if (all_assignments[Object.keys(all_assignments)[i]][1] == dat_month && dat_array[all_assignments[Object.keys(all_assignments)[i]][5]-1] == all_assignments[Object.keys(all_assignments)[i]][2] && all_assignments[Object.keys(all_assignments)[i]][3] == dat_year) {
-        var create_new_assignment_box = create_element(
-          element_types[1],
-          selectors[1],
-          "create_new_assignment_box",
-          all_assignments[Object.keys(all_assignments)[i]][6],
-          Array.from(document.getElementById("assignmentCellDiv").children)[((all_assignments[Object.keys(all_assignments)[i]][4]-1)*6)+all_assignments[Object.keys(all_assignments)[i]][5]]
-        );
-        create_new_assignment_box.addEventListener('click', function(stop_others) {
-          stop_others.stopPropagation();
-          var this_box = this
-          var create_new_assignment_overlay = create_element(
-            element_types[1],
-            selectors[1],
-            "new-assignment-overlay",
-            ud,
-            calenderScreenVar
-          );
-          var create_new_assignment = create_element(
-            element_types[1],
-            selectors[1],
-            "new-pop-up-assignment",
-            ud,
-            calenderScreenVar
-          );
-          var new_assignment_label = create_element(
-            element_types[11],
-            selectors[1],
-            "assignment-pop-up-label",
-            this.innerHTML,
-            create_new_assignment 
-          );
-          var look_for_assignment = Array.from(document.getElementsByClassName("create_new_assignment_box"));
-          var look_for_assignment_parent = this.parentElement;
-          var look_for_assignment_pos = Array.from(look_for_assignment_parent.parentElement.children).indexOf(look_for_assignment_parent)
-          var look_for_assignment_description;
-          for (let i = 0; i < Object.keys(all_assignments).length; i++) {
-            if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7])  {
-              look_for_assignment_description = all_assignments[i+1][0]
-            }
-          }
-          var new_assignment_description = create_element(
-            element_types[11],
-            selectors[1],
-            "assignment-pop-up-description",
-            look_for_assignment_description,
-            create_new_assignment 
-          );
-          var delete_new_assignment = create_element(
-            element_types[7],
-            selectors[1],
-            "assignment-pop-up-delete",
-            "Delete",
-            create_new_assignment 
-          );
-          delete_new_assignment.addEventListener('click', () => { 
-            var look_for_assignment_parent = this_box.parentElement;
-            var look_for_assignment_pos = Array.from(look_for_assignment_parent.parentElement.children).indexOf(look_for_assignment_parent)
-            for (let i = 0; i < Object.keys(all_assignments).length; i++) {
-              if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7])  {
-                this_box.remove()
-                delete all_assignments[i+1] 
-                for (let a = 1; a < Object.keys(all_assignments).length+1; a++) {
-                  if (a > i) {
-                    all_assignments[a] = all_assignments[a+1];
-                    delete all_assignments[a+1];
-                  }
-                }
-              }
-            chrome.storage.local.set({'ASSIGNEMNTSSTORAGE': all_assignments}).then(() => {});
-            let delete_assigment = document.getElementsByClassName("new-pop-up-assignment");
-            for (let i = 0; i < delete_assigment.length; i++) {
-              delete_assigment[i].remove();
-            }
-            delete_assigment = Array.from(document.getElementsByClassName("new-assignment-overlay"));
-            if (delete_assigment.length != 0) {
-              delete_assigment[0].remove();
-            }
-          }
-        })
-          var close_new_assignment = create_element(
-            element_types[7],
-            selectors[1],
-            "assignment-pop-up-button",
-            "\u00d7",
-            create_new_assignment 
-          );
-          close_new_assignment.addEventListener('click', () => {
-            let delete_assigment = document.getElementsByClassName("new-pop-up-assignment");
-            for (let i = 0; i < delete_assigment.length; i++) {
-              delete_assigment[i].remove();
-            }
-            delete_assigment = document.getElementsByClassName(
-              "new-assignment-overlay"
-            );
-            delete_assigment[0].remove();
-          })
-        })
-      }
-    }
+    updateAp()
   });
 
   const create_new_box = function () {
@@ -1913,9 +1729,43 @@ if (chromeless == ud) {
           } else if (assignment_index == 5 || assignment_index == 11 || assignment_index == 17 || assignment_index == 23 || assignment_index == 29 || assignment_index == 36 || assignment_index == 41) {
             assignment_column = 5
           }
-
-          all_assignments[Object.keys(all_assignments).length + 1] = [create_new_assignment_description.value, dat_month, dat - (day - assignment_column), dat_year, assignment_row, assignment_column, create_new_assignment_title.value, assignment_index]
-          chrome.storage.local.set({'ASSIGNEMNTSSTORAGE': all_assignments}).then(() => {});
+          let dat_max;
+          const calculate_month = function () {
+            if (
+              dat_month == 0 ||
+              dat_month == 2 ||
+              dat_month == 4 ||
+              dat_month == 6 ||
+              dat_month == 7 ||
+              dat_month == 9 ||
+              dat_month == 11
+            ) {
+              dat_max = 31;
+            } else if (
+              dat_month == 3 ||
+              dat_month == 5 ||
+              dat_month == 8 ||
+              dat_month == 10
+            ) {
+              dat_max = 30;
+            } else if (dat_month == 1) {
+              if (dat_year % 4 == 0) {
+                dat_max = 29;
+              } else {
+                dat_max = 28;
+              }
+            }
+          };
+          calculate_month();
+          let true_date, true_month = dat_month;
+          if (dat - (day - assignment_column) > dat_max) {
+            true_date = dat - (day - assignment_column) - dat_max
+            true_month = dat_month + 1
+          } else {
+            true_date = dat - (day - assignment_column)
+          }
+          all_assignments[Object.keys(all_assignments).length + 1] = [create_new_assignment_description.value, true_month, true_date, dat_year, assignment_row, assignment_column, create_new_assignment_title.value, assignment_index]
+          chrome.storage.local.set({'ASSIGNEMNTSSTORAGES': all_assignments}).then(() => {});
           let delete_assigment = document.getElementsByClassName("new-assignment");
           for (let i = 0; i < delete_assigment.length; i++) {
             delete_assigment[i].remove();
@@ -1986,7 +1836,7 @@ if (chromeless == ud) {
                     }
                   }
                 }
-              chrome.storage.local.set({'ASSIGNEMNTSSTORAGE': all_assignments}).then(() => {});
+              chrome.storage.local.set({'ASSIGNEMNTSSTORAGES': all_assignments}).then(() => {});
               let delete_assigment = document.getElementsByClassName("new-pop-up-assignment");
               for (let i = 0; i < delete_assigment.length; i++) {
                 delete_assigment[i].remove();

@@ -25,6 +25,10 @@
   --MENUCHECKBOXCOLORTWO: #555555;
   --TODOLISTBORDER: #4f4f4f;
   --TODOBUTTON: rgb(50, 50, 50);
+  --OTHERMENUDIVBORDER:#4f4f4f;
+  --SPECIALCELL: rgb(23, 23, 23); 
+  --ASSIGNMENTINPUTS: rgb(32, 32, 32);
+  --ASSIGNMENTBOX: #0f0f10;
 }
 
 html,
@@ -235,7 +239,7 @@ select {
 
 .vx-portal-nav__item-link:hover,
 .vx-tab-bar__tab:hover,
-.vx-portal-nav__item:hover .vx-portal-nav__item-link {
+.vx-portal-nav__item:hover .vx-portal-nav__item-link{
   background-color: var(--NAVAGATIONBARCOLOR) !important;
   filter: brightness(85%);
 }
@@ -511,6 +515,9 @@ body.chromeless .container,
   padding: 10px;
   box-shadow: var(--MENUSHADOW);
   border: 1px solid var(--MENUDIVBORDER);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #VeraPlusDiv {
@@ -518,7 +525,7 @@ body.chromeless .container,
   width: 300px;
   height: fit-content;
   border-radius: 15px;
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 20px;
   box-shadow: var(--MENUSHADOW);
   margin-left: auto;
@@ -554,7 +561,7 @@ body.chromeless .container,
   height: 1px;
   display: block;
   background-color: var(--LINEBREAK);
-  width: 90%;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 5px;
@@ -590,18 +597,26 @@ body.chromeless .container,
   appearance: none !important;
   background-color: rgba(89, 89, 89, 0) !important;
   border: 0px !important;
-  width: 32px !important;
+  width: 25px !important;
+  height: 20px !important;
+  padding: 0px !important;
+  margin: 0px !important;
 }
 
 #settingsScreen .colorSelectors::-webkit-color-swatch-wrapper {
-  padding: 0;
+  padding: 0px !important;
+  margin: 0px !important;
+  width: 25px !important;
+  height: 20px !important;
 }
 #settingsScreen .colorSelectors::-webkit-color-swatch {
-  border: var(--MENUCOLORINPUTBORDER) solid 1px !important;
+  border: 1px solid var(--MENUCOLORINPUTBORDER) !important;
   border-radius: 5px;
-  box-shadow: var(--MENUSHADOW);
-  width: 20px !important;
-  height: 20px;
+  box-shadow: 1px 1px 10px var(--MENUSHADOW);
+  width: 25px !important;
+  height: 20px !important;
+  padding: 0px !important;
+  margin: 0px !important;
 }
 
 .colorSelectors:hover {
@@ -656,9 +671,11 @@ input[type="checkbox"]:checked:after {
 
 .displayflex {
   display: flex;
-  align-items: center;
+  align-items: center !important;
   justify-content: space-between;
   padding: 5px;
+  min-height: 40px;
+  width: 100%;
 }
 
 #fontInput {
@@ -727,6 +744,8 @@ input[type="checkbox"]:checked:after {
   z-index: 150;
   align-items: center;
   justify-content: center;
+  font-family: -apple-system, system-ui, Ubuntu, Roboto, "Open Sans", "Segoe UI",
+  "Helvetica Neue" !important;
 }
 
 #settingsScreen select {
@@ -766,6 +785,9 @@ input[type="checkbox"]:checked:after {
   margin: 30px;
   margin-left: 0px;
   overflow-y: scroll;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 #toDoApp {
@@ -969,7 +991,7 @@ input[type="checkbox"]:checked:after {
   width: fit-content;
   height: fit-content;
   margin-top: 10px;
-  background-color: rgb(23, 23, 23);
+  background-color: var(--SPECIALCELL);
   display: flex;
   justify-content: flex-end;
   justify-items: center;
@@ -985,7 +1007,7 @@ input[type="checkbox"]:checked:after {
   padding-right: 10px;
   padding-bottom: 5px;
   padding-top: 5px;
-  border: 1px solid var(--MENUDIVBORDER);
+  border: 1px solid var(--OTHERMENUDIVBORDER);
   word-spacing: 80px;
 }
 
@@ -1009,7 +1031,7 @@ input[type="checkbox"]:checked:after {
   width: 150px;
   height: 100%;
   background-color: transparent;
-  border: 1px solid var(--MENUDIVBORDER);
+  border: 1px solid var(--OTHERMENUDIVBORDER);
   cursor: pointer;
   overflow-y: auto;
   overflow-x: hidden !important;
@@ -1043,12 +1065,12 @@ input[type="checkbox"]:checked:after {
 .assignmentCellSpecial {
   width: 150px;
   height: 100%;
-  background-color: rgb(23, 23, 23);
+  background-color: var(--SPECIALCELL);
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--MENUDIVBORDER);
+  border: 1px solid var(--OTHERMENUDIVBORDER);
   color: var(--MENUTEXT) !important;
   font-size: 20px;
 }
@@ -1056,7 +1078,7 @@ input[type="checkbox"]:checked:after {
 #create_new_assignment_title {
   border: none;
   outline: none;
-  background-color: rgb(31, 31, 31) !important;
+  background-color: var(--ASSIGNMENTINPUTS) !important;
   color: #80868b !important;
   padding: 10px;
   font-weight: 14px;
@@ -1073,7 +1095,7 @@ input[type="checkbox"]:checked:after {
 #create_new_assignment_description {
   border: none;
   outline: none;
-  background-color: rgb(31, 31, 31) !important;
+  background-color: var(--ASSIGNMENTINPUTS) !important;
   color: #80868b !important;
   padding: 10px;
   font-weight: 14px;
@@ -1156,8 +1178,8 @@ input[type="checkbox"]:checked:after {
   margin:auto;
   margin-top:7px;
   margin-bottom:7px;
-  background-color: var(--MENUBACKGROUND);
-  border: 1px solid var(--MENUDIVBORDER);
+  color: var(--MENUTEXT) !important;
+  background-color: var(--ASSIGNMENTBOX);
   text-align: center;
   padding:3px;
 }
