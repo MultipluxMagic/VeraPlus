@@ -1,6 +1,11 @@
 const ud = undefined;
 const roots = document.querySelector(":root");
 
+var all_link = document.getElementsByTagName('a')
+for (let i = 0; i< all_link.length; i++) {
+  all_link[i].removeAttribute('target')
+}
+
 //hide the overlay IF it exists else do nothing
 document.getElementsByClassName("background-overlay")[0]
   ? document.getElementsByClassName("background-overlay")[0].remove()
@@ -55,7 +60,7 @@ if (chromeless == ud) {
             document.getElementsByClassName("portal-background")[0].src =
               result.bg;
           } else {
-            screens_array[i].style.backgroundImage = "url(" + result.bg + ")";
+            screens_array[i].setAttribute("style",`background-image: url(${result.bg}) !important;     background-size: cover !important; background-attachment: fixed !important; background-repeat: no-repeat !important;`);
           }
         }
         let store = result.bg;
@@ -316,7 +321,7 @@ if (chromeless == ud) {
     element_types[0],
     selectors[0],
     "backgroundChangeLabel",
-    "Background Url",
+    "Image Url",
     bdtwo
   );
   var bi = create_element(
@@ -339,7 +344,7 @@ if (chromeless == ud) {
     element_types[0],
     selectors[0],
     "backgroundChangeLabel",
-    "Background Blur",
+    "Blur Intesity",
     bdthree
   );
   var bs = create_element(
@@ -461,171 +466,72 @@ if (chromeless == ud) {
     element_types[0],
     selectors[0],
     "settingsText",
-    "NAVIGATION BAR",
+    "CUSTOMIZE",
     sc
   );
-  var nd = create_element(element_types[1], selectors[0], "navDiv", ud, sc);
-  var ndtwo = create_element(
+  var basicsettings = create_element(element_types[1], selectors[0], "timeDiv", ud, sc);
+  var basic_settings_div = create_element(
     element_types[1],
     selectors[1],
     "displayflex",
     ud,
-    nd
+    basicsettings
   );
-  var nct = create_element(
-    element_types[0],
-    selectors[0],
-    "backgroundChangeLabel",
-    "Navigation Color",
-    ndtwo
-  );
-  var nci = create_element(
-    element_types[2],
-    selectors[0],
-    "navChangeInput",
-    ud,
-    ndtwo
-  );
-  nci.type = "color";
-  nci.setAttribute("class", "colorSelectors");
-  nci.value = "#FFFFFF";
-  var lb = create_element(element_types[1], selectors[0], "lineBreak", ud, nd);
-  var ndthree = create_element(
-    element_types[1],
-    selectors[1],
-    "displayflex",
-    ud,
-    nd
-  );
-  var ntc = create_element(
-    element_types[0],
-    selectors[0],
-    "backgroundChangeLabel",
-    "Navigation Text Color",
-    ndthree
-  );
-  var ntci = create_element(
-    element_types[2],
-    selectors[0],
-    "navTextChangeInput",
-    ud,
-    ndthree
-  );
-  ntci.type = "color";
-  ntci.setAttribute("class", "colorSelectors");
-  ntci.value = "#FFFFFF";
-  var txt = create_element(
-    element_types[0],
-    selectors[0],
-    "settingsText",
-    "TEXT AND BODY",
-    sc
-  );
-  var txtd = create_element(element_types[1], selectors[0], "textDiv", ud, sc);
-  var txtdtwo = create_element(
-    element_types[1],
-    selectors[1],
-    "displayflex",
-    ud,
-    txtd
-  );
-  var btc = create_element(
+  var basic_settings_color = create_element(
     element_types[0],
     selectors[0],
     "backgroundChangeLabel",
     "Text Color",
-    txtdtwo
+    basic_settings_div
   );
-  var btci = create_element(
+  var basic_text_color = create_element(
     element_types[2],
     selectors[0],
     "backgroundChangeLabelInput",
     ud,
-    txtdtwo
+    basic_settings_div
   );
-  btci.type = "color";
-  btci.setAttribute("class", "colorSelectors");
-  btci.value = "#FFFFFF";
-  var lb = create_element(
-    element_types[1],
-    selectors[0],
-    "lineBreak",
-    ud,
-    txtd
-  );
-  var txtdthree = create_element(
+  basic_text_color.type = "color";
+  basic_text_color.setAttribute("class", "colorSelectors");
+  basic_text_color.value = "#FFFFFF";
+  var lb = create_element(element_types[1], selectors[0], "lineBreak", ud, basicsettings);
+  var basic_settings_div_two = create_element(
     element_types[1],
     selectors[1],
     "displayflex",
     ud,
-    txtd
+    basicsettings
   );
-  var bc = create_element(
+  var basic_main_color = create_element(
     element_types[0],
     selectors[0],
     "backgroundChangeLabel",
-    "Body Color",
-    txtdthree
+    "Theme Color",
+    basic_settings_div_two
   );
-  var bci = create_element(
+  var basic_main_color = create_element(
     element_types[2],
     selectors[0],
     "backgroundChangeLabelInput",
     ud,
-    txtdthree
+    basic_settings_div_two
   );
-  var lb = create_element(
-    element_types[1],
-    selectors[0],
-    "lineBreak",
-    ud,
-    txtd
-  );
-  var txtdsix = create_element(
-    element_types[1],
-    selectors[1],
-    "displayflex",
-    ud,
-    txtd
-  );
-  var bbs = create_element(
-    element_types[0],
-    selectors[0],
-    "backgroundChangeLabel",
-    "Body Shadow",
-    txtdsix
-  );
-  var bbsi = create_element(
-    element_types[2],
-    selectors[0],
-    "BodyShadowImput",
-    ud,
-    txtdsix
-  );
-  bbsi.type = "checkbox";
-  bbsi.checked = true;
-  bci.type = "color";
-  bci.setAttribute("class", "colorSelectors");
-  bci.value = "#FFFFFF";
-  var lb = create_element(
-    element_types[1],
-    selectors[0],
-    "lineBreak",
-    ud,
-    txtd
-  );
+  basic_main_color.type = "color";
+  basic_main_color.setAttribute("class", "colorSelectors");
+  basic_main_color.value = "#FFFFFF";
+  var lb = create_element(element_types[1], selectors[0], "lineBreak", ud, basicsettings);
   var txtdfour = create_element(
     element_types[1],
     selectors[1],
     "displayflex",
     ud,
-    txtd
+    basicsettings
   );
   var oc = create_element(
     element_types[0],
     selectors[0],
     "backgroundChangeLabel",
-    "Body Opacity",
+    "Opacity",
     txtdfour
   );
   var oci = create_element(
@@ -639,26 +545,13 @@ if (chromeless == ud) {
   oci.value = "100";
   oci.min = "0";
   oci.max = "100";
-  var bt = create_element(
-    element_types[0],
-    selectors[0],
-    "settingsText",
-    "BUTTONS",
-    sc
-  );
-  var lb = create_element(
-    element_types[1],
-    selectors[0],
-    "lineBreak",
-    ud,
-    txtd
-  );
+  var lb = create_element(element_types[1], selectors[0], "lineBreak", ud, basicsettings);
   var txtdfive = create_element(
     element_types[1],
     selectors[1],
     "displayflex",
     ud,
-    txtd
+    basicsettings
   );
   var oc = create_element(
     element_types[0],
@@ -698,31 +591,70 @@ if (chromeless == ud) {
     fi
   );
   fithree.innerHTML = "ROCKWELL";
-  var bud = create_element(element_types[1], selectors[0], "buttonDiv", ud, sc);
-  var budtwo = create_element(
+
+  var eft = create_element(
+    element_types[0],
+    selectors[0],
+    "settingsText",
+    "EFFECTS",
+    sc
+  );
+
+  var lb = create_element(element_types[1], selectors[0], "lineBreak", ud, basicsettings);
+
+  var bsfive = create_element(
     element_types[1],
     selectors[1],
     "displayflex",
     ud,
-    bud
+    basicsettings
   );
-  var butc = create_element(
+  var color_coded_label = create_element(
     element_types[0],
     selectors[0],
     "backgroundChangeLabel",
-    "Button Color",
-    budtwo
+    "Colored Grades",
+    bsfive
   );
-  var butci = create_element(
+  var color_coded_input = create_element(
     element_types[2],
     selectors[0],
-    "buttonTextChangeInput",
+    "color-coded-input",
     ud,
-    budtwo
+    bsfive
   );
-  butci.type = "color";
-  butci.setAttribute("class", "colorSelectors");
-  butci.value = "#FFFFFF";
+  color_coded_input.type = "checkbox"
+
+  var efd = create_element(
+    element_types[1],
+    selectors[0],
+    "EFFECTDIV",
+    ud,
+    sc
+  );
+
+  var efdtwo = create_element(
+    element_types[1],
+    selectors[1],
+    "displayflex",
+    ud,
+    efd
+  );
+  var snl = create_element(
+    element_types[0],
+    selectors[0],
+    "backgroundChangeLabel",
+    "Snow",
+    efdtwo
+  );
+  var sni = create_element(
+    element_types[2],
+    selectors[0],
+    "snowInput",
+    ud,
+    efdtwo
+  );
+  sni.type = "checkbox"
   var vpt = create_element(
     element_types[0],
     selectors[0],
@@ -760,6 +692,204 @@ if (chromeless == ud) {
   );
   vpdmi.type = "checkbox";
   vpdmi.checked = true;
+  var txtdisplayflex = create_element(
+    element_types[1],
+    selectors[1],
+    "displayflexadvanced",
+    ud,
+    sc
+  );
+
+  var txtadvanced = create_element(
+    element_types[0],
+    selectors[0],
+    "settingsTextAdvanced",
+    "ADVANCED SETTINGS",
+    txtdisplayflex
+  );
+  var advancedArrow = create_element(
+    element_types[0],
+    selectors[0],
+    "advancedArrow",
+    "▲",
+    txtdisplayflex
+  );
+  var txtd = create_element(element_types[1], selectors[0], "textDiv", ud, sc);
+  var txtdtwo = create_element(
+    element_types[1],
+    selectors[1],
+    "displayflex",
+    ud,
+    txtd
+  );
+  var btc = create_element(
+    element_types[0],
+    selectors[0],
+    "backgroundChangeLabel",
+    "Body Text Color",
+    txtdtwo
+  );
+  var btci = create_element(
+    element_types[2],
+    selectors[0],
+    "backgroundChangeLabelInput",
+    ud,
+    txtdtwo
+  );
+  btci.type = "color";
+  btci.setAttribute("class", "colorSelectors");
+  btci.value = "#FFFFFF";
+  var lb = create_element(element_types[1], selectors[0], "lineBreak", ud, txtd);
+  var ndthree = create_element(
+    element_types[1],
+    selectors[1],
+    "displayflex",
+    ud,
+    txtd
+  );
+  var ntc = create_element(
+    element_types[0],
+    selectors[0],
+    "backgroundChangeLabel",
+    "Navigation Text Color",
+    ndthree
+  );
+  var ntci = create_element(
+    element_types[2],
+    selectors[0],
+    "navTextChangeInput",
+    ud,
+    ndthree
+  );
+  ntci.type = "color";
+  ntci.setAttribute("class", "colorSelectors");
+  ntci.value = "#FFFFFF";
+  var lb = create_element(
+    element_types[1],
+    selectors[0],
+    "lineBreak",
+    ud,
+    txtd
+  );
+  var txtdthree = create_element(
+    element_types[1],
+    selectors[1],
+    "displayflex",
+    ud,
+    txtd
+  );
+  var bc = create_element(
+    element_types[0],
+    selectors[0],
+    "backgroundChangeLabel",
+    "Body Color",
+    txtdthree
+  );
+  var bci = create_element(
+    element_types[2],
+    selectors[0],
+    "backgroundChangeLabelInput",
+    ud,
+    txtdthree
+  );
+  var lb = create_element(
+    element_types[1],
+    selectors[0],
+    "lineBreak",
+    ud,
+    txtd
+  );
+  var ndtwo = create_element(
+    element_types[1],
+    selectors[1],
+    "displayflex",
+    ud,
+    txtd
+  );
+  var nct = create_element(
+    element_types[0],
+    selectors[0],
+    "backgroundChangeLabel",
+    "Navigation Color",
+    ndtwo
+  );
+  var nci = create_element(
+    element_types[2],
+    selectors[0],
+    "navChangeInput",
+    ud,
+    ndtwo
+  );
+  nci.type = "color";
+  nci.setAttribute("class", "colorSelectors");
+  nci.value = "#FFFFFF";
+  
+  var lb = create_element(
+    element_types[1],
+    selectors[0],
+    "lineBreak",
+    ud,
+    txtd
+  );
+  var budtwo = create_element(
+    element_types[1],
+    selectors[1],
+    "displayflex",
+    ud,
+    txtd
+  );
+  var butc = create_element(
+    element_types[0],
+    selectors[0],
+    "backgroundChangeLabel",
+    "Button Color",
+    budtwo
+  );
+  var butci = create_element(
+    element_types[2],
+    selectors[0],
+    "buttonTextChangeInput",
+    ud,
+    budtwo
+  );
+  butci.type = "color";
+  butci.setAttribute("class", "colorSelectors");
+  butci.value = "#FFFFFF";
+
+  var lb = create_element(
+    element_types[1],
+    selectors[0],
+    "lineBreak",
+    ud,
+    txtd
+  );
+
+  var txtdsix = create_element(
+    element_types[1],
+    selectors[1],
+    "displayflex",
+    ud,
+    txtd
+  );
+  var bbs = create_element(
+    element_types[0],
+    selectors[0],
+    "backgroundChangeLabel",
+    "Body Shadow",
+    txtdsix
+  );
+  var bbsi = create_element(
+    element_types[2],
+    selectors[0],
+    "BodyShadowImput",
+    ud,
+    txtdsix
+  );
+  bbsi.type = "checkbox";
+  bbsi.checked = true;
+  bci.type = "color";
+  bci.setAttribute("class", "colorSelectors");
+  bci.value = "#FFFFFF";
 
   //Change background and add to local storage
   var changeBackground = function () {
@@ -790,6 +920,95 @@ if (chromeless == ud) {
   });
 
   bs.addEventListener("input", changeBlur);
+
+  var startSnow = function () {
+    if (sni.checked == false) {
+      document.getElementById("snow-wrap").remove()
+      chrome.storage.local.set({ snow: false }).then(() => {});
+    } else {
+      var snow_wrap = create_element(
+        element_types[1],
+        selectors[0],
+        "snow-wrap",
+        ud,
+        screen_type
+      );
+      var snow = create_element(
+        element_types[1],
+        selectors[0],
+        "snow",
+        ud,
+        snow_wrap
+      );
+      chrome.storage.local.set({ snow: true }).then(() => {});
+    }
+  };
+
+  //Load blur from chrome extension storage.
+  chrome.storage.local.get(["snow"]).then((result) => {
+    if (result.snow != ud) {
+      if (result.snow == true) {
+        var snow_wrap = create_element(
+          element_types[1],
+          selectors[0],
+          "snow-wrap",
+          ud,
+          screen_type
+        );
+        var snow = create_element(
+          element_types[1],
+          selectors[0],
+          "snow",
+          ud,
+          snow_wrap
+        );
+        sni.checked = true
+      }
+    }
+  });
+
+  sni.addEventListener("input", startSnow);
+
+    function color_coded_function() {
+      if (color_coded_input.checked == true) {
+        chrome.storage.local.set({ colorCoded: true }).then(() => {});
+        var grades = document.getElementsByClassName('letter-grade')
+        var grades_numeric = document.getElementsByClassName('numeric-grade')
+        var grades_array = Array.from(grades)
+        var grades_numeric_array = Array.from(grades_numeric)
+        for (let i = 0; i < grades_array.length; i++) {
+          var current_grade = parseFloat(grades_numeric_array[i].innerHTML.replace('%',''))
+          if (current_grade >= 90.00) {
+            grades_array[i].setAttribute("style", "color: #31D92B !important;")
+            grades_numeric_array[i].setAttribute("style", "color: #31D92B !important;")
+          } else if (current_grade < 90.00 && current_grade >= 80.00) {
+            grades_array[i].setAttribute("style", "color: #8EFF8F !important;")
+            grades_numeric_array[i].setAttribute("style", "color: #8EFF8F !important;")
+          } else if (current_grade < 80.00 && current_grade >= 70.00) {
+            grades_array[i].setAttribute("style", "color: yellow !important;")
+            grades_numeric_array[i].setAttribute("style", "color: yellow !important;")
+          } else if (current_grade < 70.00 && current_grade >= 60.00) {
+            grades_array[i].setAttribute("style", "color: #ff8b00 !important;")
+            grades_numeric_array[i].setAttribute("style", "color: #ff8b00 !important;")
+          } else if (current_grade < 60.00) {
+            grades_array[i].setAttribute("style", "color: #B32927 !important;")
+            grades_numeric_array[i].setAttribute("style", "color: #B32927 !important;")
+          }
+        }
+      } else {
+        chrome.storage.local.set({ colorCoded: false }).then(() => {});
+        var grades = document.getElementsByClassName('letter-grade')
+        var grades_numeric = document.getElementsByClassName('numeric-grade')
+        var grades_array = Array.from(grades)
+        var grades_numeric_array = Array.from(grades_numeric)
+        for (let i = 0; i < grades_array.length; i++) {
+          grades_array[i].removeAttribute("style")
+          grades_numeric_array[i].removeAttribute("style")
+        }
+      }
+  }
+
+  color_coded_input.addEventListener("input", color_coded_function);
 
   var displayTimeInputFunc = function () {
     if (document.getElementById("displayTimeInput").checked == true) {
@@ -890,7 +1109,24 @@ if (chromeless == ud) {
     roots.style.setProperty("--BODYTEXTCOLOR", btci.value);
   };
 
+  var basicTextChangeInputFunc = function () {
+    chrome.storage.local.set({ bodyTextColor: basic_text_color.value }).then(() => {});
+    roots.style.setProperty("--BODYTEXTCOLOR", basic_text_color.value);
+    chrome.storage.local.set({ navTextColor: basic_text_color.value }).then(() => {});
+    roots.style.setProperty("--NAVAGATIONTEXTCOLOR", basic_text_color.value);
+    ntci.value = basic_text_color.value
+    btci.value = basic_text_color.value
+    chrome.storage.local.set({ basicTextColor: basic_text_color.value }).then(() => {});
+  };
+
+  basic_text_color.addEventListener("input", basicTextChangeInputFunc);
   btci.addEventListener("input", bodyTextChangeInputFunc);
+
+  chrome.storage.local.get(["basicTextColor"]).then((result) => {
+    if (result.basicTextColor != ud) {
+      basic_text_color.value = result.basicTextColor;
+    }
+  });
 
   chrome.storage.local.get(["bodyTextColor"]).then((result) => {
     if (result.bodyTextColor != ud) {
@@ -1057,6 +1293,64 @@ if (chromeless == ud) {
     }
   });
 
+  function advancedArrowFunction() {
+    if (this.innerHTML == "▼") {
+      this.innerHTML = "▲"
+      txtd.style.display = "none"
+      txtadvanced.style.marginBottom = "20px"
+      advancedArrow.style.marginBottom = "20px"
+    } else {
+      this.innerHTML = "▼"
+      txtd.style.display = "block"      
+      txtadvanced.style.marginBottom = "10px"
+      advancedArrow.style.marginBottom = "10px"
+    }
+  }
+  advancedArrow.addEventListener('click', advancedArrowFunction)
+
+  function basicMainColorFunc() {
+    hex = hex2rgb(basic_main_color.value);
+    var rgba;
+    const componentToHex = (c) => {
+      const hex = c.toString(16);
+      return hex.length == 1 ? "0" + hex : hex;
+    };
+
+    const rgbToHex = (r, g, b) => {
+      return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    };
+    rgba = "rgba(" + hex.r + "," + hex.g + "," + hex.b + "," + oci.value / 100 + ")";
+    bci.value  = rgbToHex(hex.r,hex.g,hex.b)
+    var r2, b2, g2
+    if (hex.r-50 < 0) {r2 = 0} else {r2 = hex.r-50}
+    if (hex.g-50 < 0) {g2 = 0} else {g2 = hex.g-50}
+    if (hex.b-50 < 0) {b2 = 0} else {b2 = hex.b-50}
+    rgba2 = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
+    butci.value = rgbToHex(r2,g2,b2)
+    var r3, b3, g3
+    if (hex.r-80 < 0) {r3 = 0} else {r3 = hex.r-80}
+    if (hex.g-80 < 0) {g3 = 0} else {g3 = hex.g-80}
+    if (hex.b-80 < 0) {b3 = 0} else {b3 = hex.b-80}
+    rgba3 = "rgb(" + r3 + "," + g3 + "," + b3 + ")";
+    nci.value = rgbToHex(r3,g3,b3)
+    chrome.storage.local.set({ bodyColor: rgbToHex(hex.r,hex.g,hex.b) }).then(() => {});
+    chrome.storage.local.set({ opacitySlider: oci.value }).then(() => {});
+    chrome.storage.local.set({ navColor: rgbToHex((r3),(g3),(b3)) }).then(() => {});
+    roots.style.setProperty("--NAVAGATIONBARCOLOR", rgba3);
+    chrome.storage.local.set({ buttonTextChange: rgbToHex(r2,g2,b2) }).then(() => {});
+    chrome.storage.local.set({ bodyColor: String(rgba) }).then(() => {});
+    roots.style.setProperty("--BACKGROUNDCOLOR", String(rgba));
+    roots.style.setProperty("--SCREENBUTTONCOLOR", String(rgba2));
+    chrome.storage.local.set({ basicMainColor: basic_main_color.value}).then(() => {});
+  }
+
+  basic_main_color.addEventListener("input", basicMainColorFunc);
+
+  chrome.storage.local.get(["basicMainColor"]).then((result) => {
+    if (result.basicMainColor != ud) {
+      basic_main_color.value = result.basicMainColor
+    }
+  })
   function uploadImage() {
     const reader = new FileReader();
     reader.addEventListener("load", () => {
@@ -1204,10 +1498,13 @@ if (chromeless == ud) {
 
   const changeCalender = function () {
     if (calenderOpen == false) {
-      calenderScreenVar.style.display = "flex";
+      calenderScreenVar.style.transform = "translate(0%)";
       calenderOpen = true;
+      settingsOpen = false
+      sc.style.transform = "translate(110%)";
+      document.body.style.width = "100%"
     } else {
-      calenderScreenVar.style.display = "none";
+      calenderScreenVar.style.transform = "translate(-110%)";
       calenderOpen = false;
       var assignments_array = document.getElementsByClassName("new-assignment");
       if (assignments_array.length != 0) {
@@ -1304,86 +1601,8 @@ if (chromeless == ud) {
   dates(current_date)
 
   let assignment_date = new Date(),
-    day = assignment_date.getDay(),
-    dat = assignment_date.getDate(),
-    dat_month = assignment_date.getMonth(),
-    dat_year = assignment_date.getFullYear();
-    
-  let assignment_date_update = function () {
-    let dat_mon = dat - (day - 1),
-      dat_tues = dat - (day - 2),
-      dat_wed = dat - (day - 3),
-      dat_thu = dat - (day - 4),
-      dat_fri = dat - (day - 5);
-
-    dat_array = [dat_mon, dat_tues, dat_wed, dat_thu, dat_fri];
-
-    let dat_max;
-    const calculate_month = function () {
-      if (
-        dat_month == 0 ||
-        dat_month == 2 ||
-        dat_month == 4 ||
-        dat_month == 6 ||
-        dat_month == 7 ||
-        dat_month == 9 ||
-        dat_month == 11
-      ) {
-        dat_max = 31;
-      } else if (
-        dat_month == 3 ||
-        dat_month == 5 ||
-        dat_month == 8 ||
-        dat_month == 10
-      ) {
-        dat_max = 30;
-      } else if (dat_month == 1) {
-        if (dat_year % 4 == 0) {
-          dat_max = 29;
-        } else {
-          dat_max = 28;
-        }
-      }
-    };
-
-    calculate_month();
-
-    for (let i = 0; i < dat_array.length; i++) {
-      if (dat_array[i] > dat_max) {
-        dat_array[i] -= dat_max;
-      }
-      if (dat > dat_max) {
-        dat = dat -= dat_max;
-        dat_month = dat_month + 1;
-        if (dat_month > 11) {
-          dat_month = 0;
-          dat_year += 1;
-        }
-      }
-      if (dat < 1) {
-        dat_month = dat_month - 1;
-        calculate_month();
-        dat = dat += dat_max;
-        if (dat_month < 0) {
-          dat_month = 11;
-          dat_year -= 1;
-        }
-      }
-      if (dat_array[i] < 1) {
-        dat_array[i] += dat_max;
-      }
-    }
-
-    if (assignmentLabel != ud) {
-      assignmentLabel.innerHTML =
-        "Assignment Planner - " +
-        months[dat_month] +
-        " " +
-        String(dat_year);
-    }
-  };
-
-  assignment_date_update();
+  dat_month = assignment_date.getMonth(),
+  dat_year = assignment_date.getFullYear();
 
   var assignmentLabel = create_element(
     element_types[11],
@@ -1413,35 +1632,35 @@ if (chromeless == ud) {
     element_types[1],
     selectors[1],
     "assignmentDaysText",
-    "Monday \n" + dat_array[0],
+    "Monday \n" + date_array[0][1],
     assignmentDaysDiv
   );
   var assignmentDaysTue = create_element(
     element_types[1],
     selectors[1],
     "assignmentDaysText",
-    "Tuesday \n" + dat_array[1],
+    "Tuesday \n" + date_array[1][1],
     assignmentDaysDiv
   );
   var assignmentDaysWed = create_element(
     element_types[1],
     selectors[1],
     "assignmentDaysText",
-    "Wednesday \n" + dat_array[2],
+    "Wednesday \n" + date_array[2][1],
     assignmentDaysDiv
   );
   var assignmentDaysThu = create_element(
     element_types[1],
     selectors[1],
     "assignmentDaysText",
-    "Thursday \n" + dat_array[3],
+    "Thursday \n" + date_array[3][1],
     assignmentDaysDiv
   );
   var assignmentDaysFri = create_element(
     element_types[1],
     selectors[1],
     "assignmentDaysText",
-    "Friday \n" + dat_array[4],
+    "Friday \n" + date_array[4][1],
     assignmentDaysDiv
   );
   var assignmentCellDiv = create_element(
@@ -1475,6 +1694,7 @@ if (chromeless == ud) {
   );
 
   const updateAp = function() {
+    assignmentLabel.innerHTML = "Assignment Planner - " + months[dat_month] + " " + String(dat_year)
     for (let i = 0; i < Object.keys(all_assignments).length; i++) {
       let is_true = false;
       for (let k = 0; k < date_array.length; k++) {
@@ -1482,7 +1702,7 @@ if (chromeless == ud) {
           is_true = true
         }
       }
-      if (is_true) {
+      if (is_true) { 
         var create_new_assignment_box = create_element(
           element_types[1],
           selectors[1],
@@ -1514,15 +1734,39 @@ if (chromeless == ud) {
             this.innerHTML,
             create_new_assignment 
           );
-          var look_for_assignment = Array.from(document.getElementsByClassName("create_new_assignment_box"));
           var look_for_assignment_parent = this.parentElement;
           var look_for_assignment_pos = Array.from(look_for_assignment_parent.parentElement.children).indexOf(look_for_assignment_parent)
+          if (look_for_assignment_pos == 1 || look_for_assignment_pos == 7 || look_for_assignment_pos == 13 || look_for_assignment_pos == 19 || look_for_assignment_pos == 25 || look_for_assignment_pos == 32 || look_for_assignment_pos == 37) {
+            var look_for_assignment_column = 0
+          } else if (look_for_assignment_pos == 2 || look_for_assignment_pos == 8 || look_for_assignment_pos == 14 || look_for_assignment_pos == 20 || look_for_assignment_pos == 26 || look_for_assignment_pos == 33 || look_for_assignment_pos == 38) {
+            var look_for_assignment_column = 1
+          } else if (look_for_assignment_pos == 3 || look_for_assignment_pos == 9 || look_for_assignment_pos == 15 || look_for_assignment_pos == 21 || look_for_assignment_pos == 27 || look_for_assignment_pos == 34 || look_for_assignment_pos == 39) {
+            var look_for_assignment_column = 2
+          } else if (look_for_assignment_pos == 4 || look_for_assignment_pos == 10 || look_for_assignment_pos == 16 || look_for_assignment_pos == 22 || look_for_assignment_pos == 28 || look_for_assignment_pos == 35 || look_for_assignment_pos == 40) {
+            var look_for_assignment_column = 3
+          } else if (look_for_assignment_pos == 5 || look_for_assignment_pos == 11 || look_for_assignment_pos == 17 || look_for_assignment_pos == 23 || look_for_assignment_pos == 29 || look_for_assignment_pos == 36 || look_for_assignment_pos == 41) {
+            var look_for_assignment_column = 4
+          }
           var look_for_assignment_description;
-          for (let i = 0; i < Object.keys(all_assignments).length; i++) {
-            if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7])  {
-              look_for_assignment_description = all_assignments[i+1][0]
+          var repeat_name;
+          for (let i = 0; i < Array.from(this.parentElement.children).length; i++)  {
+            if (Array.from(this.parentElement.children)[i].innerHTML == this.innerHTML) {
+              if (Array.from(this.parentElement.children)[i] == this) {
+                repeat_name = i
+              }
             }
           }
+          var check_for_duplicates = -1;
+          for (let i = 0; i < Object.keys(all_assignments).length; i++) {
+            if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7] && date_array[look_for_assignment_column][1] == all_assignments[i+1][2])  {
+              check_for_duplicates++ 
+              if (repeat_name == check_for_duplicates) {
+                look_for_assignment_description = all_assignments[i+1][0]
+                break
+              }
+            }
+          }
+          var lb = create_element(element_types[1], selectors[0], "lineBreakAssigment", ud, create_new_assignment );
           var new_assignment_description = create_element(
             element_types[11],
             selectors[1],
@@ -1540,8 +1784,30 @@ if (chromeless == ud) {
           delete_new_assignment.addEventListener('click', () => { 
             var look_for_assignment_parent = this_box.parentElement;
             var look_for_assignment_pos = Array.from(look_for_assignment_parent.parentElement.children).indexOf(look_for_assignment_parent)
+            if (look_for_assignment_pos == 1 || look_for_assignment_pos == 7 || look_for_assignment_pos == 13 || look_for_assignment_pos == 19 || look_for_assignment_pos == 25 || look_for_assignment_pos == 32 || look_for_assignment_pos == 37) {
+              var look_for_assignment_column = 0
+            } else if (look_for_assignment_pos == 2 || look_for_assignment_pos == 8 || look_for_assignment_pos == 14 || look_for_assignment_pos == 20 || look_for_assignment_pos == 26 || look_for_assignment_pos == 33 || look_for_assignment_pos == 38) {
+              var look_for_assignment_column = 1
+            } else if (look_for_assignment_pos == 3 || look_for_assignment_pos == 9 || look_for_assignment_pos == 15 || look_for_assignment_pos == 21 || look_for_assignment_pos == 27 || look_for_assignment_pos == 34 || look_for_assignment_pos == 39) {
+              var look_for_assignment_column = 2
+            } else if (look_for_assignment_pos == 4 || look_for_assignment_pos == 10 || look_for_assignment_pos == 16 || look_for_assignment_pos == 22 || look_for_assignment_pos == 28 || look_for_assignment_pos == 35 || look_for_assignment_pos == 40) {
+              var look_for_assignment_column = 3
+            } else if (look_for_assignment_pos == 5 || look_for_assignment_pos == 11 || look_for_assignment_pos == 17 || look_for_assignment_pos == 23 || look_for_assignment_pos == 29 || look_for_assignment_pos == 36 || look_for_assignment_pos == 41) {
+              var look_for_assignment_column = 4
+            }
+            var repeat_name;
+            for (let i = 0; i < Array.from(this.parentElement.children).length; i++)  {
+              if (Array.from(this.parentElement.children)[i].innerHTML == this.innerHTML) {
+                if (Array.from(this.parentElement.children)[i] == this) {
+                  repeat_name = i
+                }
+              }
+            }
+            var check_for_duplicates = -1;
             for (let i = 0; i < Object.keys(all_assignments).length; i++) {
-              if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7])  {
+              if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7] && date_array[look_for_assignment_column][1] == all_assignments[i+1][2])  {
+                check_for_duplicates++
+                if (repeat_name == check_for_duplicates)  {
                 this_box.remove()
                 delete all_assignments[i+1] 
                 for (let a = 1; a < Object.keys(all_assignments).length+1; a++) {
@@ -1549,6 +1815,7 @@ if (chromeless == ud) {
                     all_assignments[a] = all_assignments[a+1];
                     delete all_assignments[a+1];
                   }
+                }
                 }
               }
             chrome.storage.local.set({'ASSIGNEMNTSSTORAGES': all_assignments}).then(() => {});
@@ -1569,6 +1836,8 @@ if (chromeless == ud) {
             "\u00d7",
             create_new_assignment 
           );
+          var determine_height = document.getElementsByClassName("new-pop-up-assignment")[0].offsetHeight
+          close_new_assignment.style.transform = "translate(250px,-"+String(determine_height-15)+"px)"
           close_new_assignment.addEventListener('click', () => {
             let delete_assigment = document.getElementsByClassName("new-pop-up-assignment");
             for (let i = 0; i < delete_assigment.length; i++) {
@@ -1592,15 +1861,15 @@ if (chromeless == ud) {
   })
   
   assignmentFrontArrow.addEventListener("click", () => {
-    dat = dat + 7;
-    assignment_date_update();
     current_date = new Date(current_date.getTime() + 7 * 24 * 60 * 60 * 1000)
     dates(current_date)  
-    assignmentDaysMon.innerHTML = "Monday \n" + dat_array[0];
-    assignmentDaysTue.innerHTML = "Tuesday \n" + dat_array[1];
-    assignmentDaysWed.innerHTML = "Wednesday \n" + dat_array[2];
-    assignmentDaysThu.innerHTML = "Thursday \n" + dat_array[3];
-    assignmentDaysFri.innerHTML = "Friday \n" + dat_array[4];
+    dat_month = current_date.getMonth()
+    dat_year = current_date.getFullYear()
+    assignmentDaysMon.innerHTML = "Monday \n" + date_array[0][1];
+    assignmentDaysTue.innerHTML = "Tuesday \n" + date_array[1][1];
+    assignmentDaysWed.innerHTML = "Wednesday \n" + date_array[2][1];
+    assignmentDaysThu.innerHTML = "Thursday \n" + date_array[3][1];
+    assignmentDaysFri.innerHTML = "Friday \n" + date_array[4][1];
     let delete_assignment_boxes = Array.from(document.getElementsByClassName("create_new_assignment_box"))
     for (let i = 0; i < delete_assignment_boxes.length; i++) {
       delete_assignment_boxes[i].remove()
@@ -1609,15 +1878,15 @@ if (chromeless == ud) {
   });
 
   assignmentBackArrow.addEventListener("click", () => {
-    dat = dat - 7;
-    assignment_date_update();
     current_date = new Date(current_date.getTime() - 7 * 24 * 60 * 60 * 1000)
     dates(current_date)  
-    assignmentDaysMon.innerHTML = "Monday \n" + dat_array[0];
-    assignmentDaysTue.innerHTML = "Tuesday \n" + dat_array[1];
-    assignmentDaysWed.innerHTML = "Wednesday \n" + dat_array[2];
-    assignmentDaysThu.innerHTML = "Thursday \n" + dat_array[3];
-    assignmentDaysFri.innerHTML = "Friday \n" + dat_array[4];
+    dat_month = current_date.getMonth()
+    dat_year = current_date.getFullYear()
+    assignmentDaysMon.innerHTML = "Monday \n" + date_array[0][1];
+    assignmentDaysTue.innerHTML = "Tuesday \n" + date_array[1][1];
+    assignmentDaysWed.innerHTML = "Wednesday \n" + date_array[2][1];
+    assignmentDaysThu.innerHTML = "Thursday \n" + date_array[3][1];
+    assignmentDaysFri.innerHTML = "Friday \n" + date_array[4][1];
     let delete_assignment_boxes = Array.from(document.getElementsByClassName("create_new_assignment_box"))
     for (let i = 0; i < delete_assignment_boxes.length; i++) {
       delete_assignment_boxes[i].remove()
@@ -1690,6 +1959,7 @@ if (chromeless == ud) {
         "Add",
         create_new_assignment_button_div
       );
+
       create_new_assignment_button.addEventListener("click", () => {
         if (create_new_assignment_title.value.replace(/\s/g, "").length) {
           var create_new_assignment_box = create_element(
@@ -1718,6 +1988,7 @@ if (chromeless == ud) {
             assignment_row = 7
           }
 
+
           if (assignment_index == 1 || assignment_index == 7 || assignment_index == 13 || assignment_index == 19 || assignment_index == 25 || assignment_index == 32 || assignment_index == 37) {
             assignment_column = 1
           } else if (assignment_index == 2 || assignment_index == 8 || assignment_index == 14 || assignment_index == 20 || assignment_index == 26 || assignment_index == 33 || assignment_index == 38) {
@@ -1729,42 +2000,8 @@ if (chromeless == ud) {
           } else if (assignment_index == 5 || assignment_index == 11 || assignment_index == 17 || assignment_index == 23 || assignment_index == 29 || assignment_index == 36 || assignment_index == 41) {
             assignment_column = 5
           }
-          let dat_max;
-          const calculate_month = function () {
-            if (
-              dat_month == 0 ||
-              dat_month == 2 ||
-              dat_month == 4 ||
-              dat_month == 6 ||
-              dat_month == 7 ||
-              dat_month == 9 ||
-              dat_month == 11
-            ) {
-              dat_max = 31;
-            } else if (
-              dat_month == 3 ||
-              dat_month == 5 ||
-              dat_month == 8 ||
-              dat_month == 10
-            ) {
-              dat_max = 30;
-            } else if (dat_month == 1) {
-              if (dat_year % 4 == 0) {
-                dat_max = 29;
-              } else {
-                dat_max = 28;
-              }
-            }
-          };
-          calculate_month();
-          let true_date, true_month = dat_month;
-          if (dat - (day - assignment_column) > dat_max) {
-            true_date = dat - (day - assignment_column) - dat_max
-            true_month = dat_month + 1
-          } else {
-            true_date = dat - (day - assignment_column)
-          }
-          all_assignments[Object.keys(all_assignments).length + 1] = [create_new_assignment_description.value, true_month, true_date, dat_year, assignment_row, assignment_column, create_new_assignment_title.value, assignment_index]
+
+          all_assignments[Object.keys(all_assignments).length + 1] = [create_new_assignment_description.value, date_array[assignment_column-1][0], date_array[assignment_column-1][1], date_array[assignment_column-1][2], assignment_row, assignment_column, create_new_assignment_title.value, assignment_index]
           chrome.storage.local.set({'ASSIGNEMNTSSTORAGES': all_assignments}).then(() => {});
           let delete_assigment = document.getElementsByClassName("new-assignment");
           for (let i = 0; i < delete_assigment.length; i++) {
@@ -1799,15 +2036,41 @@ if (chromeless == ud) {
               this.innerHTML,
               create_new_assignment 
             );
+            
             var look_for_assignment = Array.from(document.getElementsByClassName("create_new_assignment_box"));
             var look_for_assignment_parent = this.parentElement;
             var look_for_assignment_pos = Array.from(look_for_assignment_parent.parentElement.children).indexOf(look_for_assignment_parent)
+            if (look_for_assignment_pos == 1 || look_for_assignment_pos == 7 || look_for_assignment_pos == 13 || look_for_assignment_pos == 19 || look_for_assignment_pos == 25 || look_for_assignment_pos == 32 || look_for_assignment_pos == 37) {
+              var look_for_assignment_column = 0
+            } else if (look_for_assignment_pos == 2 || look_for_assignment_pos == 8 || look_for_assignment_pos == 14 || look_for_assignment_pos == 20 || look_for_assignment_pos == 26 || look_for_assignment_pos == 33 || look_for_assignment_pos == 38) {
+              var look_for_assignment_column = 1
+            } else if (look_for_assignment_pos == 3 || look_for_assignment_pos == 9 || look_for_assignment_pos == 15 || look_for_assignment_pos == 21 || look_for_assignment_pos == 27 || look_for_assignment_pos == 34 || look_for_assignment_pos == 39) {
+              var look_for_assignment_column = 2
+            } else if (look_for_assignment_pos == 4 || look_for_assignment_pos == 10 || look_for_assignment_pos == 16 || look_for_assignment_pos == 22 || look_for_assignment_pos == 28 || look_for_assignment_pos == 35 || look_for_assignment_pos == 40) {
+              var look_for_assignment_column = 3
+            } else if (look_for_assignment_pos == 5 || look_for_assignment_pos == 11 || look_for_assignment_pos == 17 || look_for_assignment_pos == 23 || look_for_assignment_pos == 29 || look_for_assignment_pos == 36 || look_for_assignment_pos == 41) {
+              var look_for_assignment_column = 4
+            }
             var look_for_assignment_description;
-            for (let i = 0; i < Object.keys(all_assignments).length; i++) {
-              if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7])  {
-                look_for_assignment_description = all_assignments[i+1][0]
+            var repeat_name;
+            for (let i = 0; i < Array.from(this.parentElement.children).length; i++)  {
+              if (Array.from(this.parentElement.children)[i].innerHTML == this.innerHTML) {
+                if (Array.from(this.parentElement.children)[i] == this) {
+                  repeat_name = i
+                }
               }
             }
+            var check_for_duplicates = -1;
+            for (let i = 0; i < Object.keys(all_assignments).length; i++) {
+              if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7] && date_array[look_for_assignment_column][1] == all_assignments[i+1][2])  {
+                check_for_duplicates++ 
+                if (repeat_name == check_for_duplicates) {
+                  look_for_assignment_description = all_assignments[i+1][0]
+                  break
+                }
+              }
+            }
+            var lb = create_element(element_types[1], selectors[0], "lineBreakAssigment", ud, create_new_assignment );
             var new_assignment_description = create_element(
               element_types[11],
               selectors[1],
@@ -1825,14 +2088,37 @@ if (chromeless == ud) {
             delete_new_assignment.addEventListener('click', () => { 
               var look_for_assignment_parent = this_box.parentElement;
               var look_for_assignment_pos = Array.from(look_for_assignment_parent.parentElement.children).indexOf(look_for_assignment_parent)
+              if (look_for_assignment_pos == 1 || look_for_assignment_pos == 7 || look_for_assignment_pos == 13 || look_for_assignment_pos == 19 || look_for_assignment_pos == 25 || look_for_assignment_pos == 32 || look_for_assignment_pos == 37) {
+                var look_for_assignment_column = 0
+              } else if (look_for_assignment_pos == 2 || look_for_assignment_pos == 8 || look_for_assignment_pos == 14 || look_for_assignment_pos == 20 || look_for_assignment_pos == 26 || look_for_assignment_pos == 33 || look_for_assignment_pos == 38) {
+                var look_for_assignment_column = 1
+              } else if (look_for_assignment_pos == 3 || look_for_assignment_pos == 9 || look_for_assignment_pos == 15 || look_for_assignment_pos == 21 || look_for_assignment_pos == 27 || look_for_assignment_pos == 34 || look_for_assignment_pos == 39) {
+                var look_for_assignment_column = 2
+              } else if (look_for_assignment_pos == 4 || look_for_assignment_pos == 10 || look_for_assignment_pos == 16 || look_for_assignment_pos == 22 || look_for_assignment_pos == 28 || look_for_assignment_pos == 35 || look_for_assignment_pos == 40) {
+                var look_for_assignment_column = 3
+              } else if (look_for_assignment_pos == 5 || look_for_assignment_pos == 11 || look_for_assignment_pos == 17 || look_for_assignment_pos == 23 || look_for_assignment_pos == 29 || look_for_assignment_pos == 36 || look_for_assignment_pos == 41) {
+                var look_for_assignment_column = 4
+              }
+              var repeat_name;
+              for (let i = 0; i < Array.from(this.parentElement.children).length; i++)  {
+                if (Array.from(this.parentElement.children)[i].innerHTML == this.innerHTML) {
+                  if (Array.from(this.parentElement.children)[i] == this) {
+                    repeat_name = i
+                  }
+                }
+              }
+              var check_for_duplicates = -1;
               for (let i = 0; i < Object.keys(all_assignments).length; i++) {
-                if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7])  {
-                  this_box.remove()
-                  delete all_assignments[i+1] 
-                  for (let a = 1; a < Object.keys(all_assignments).length+1; a++) {
-                    if (a > i) {
-                      all_assignments[a] = all_assignments[a+1];
-                      delete all_assignments[a+1];
+                if (all_assignments[i+1][6] == this.innerHTML && look_for_assignment_pos == all_assignments[i+1][7] && date_array[look_for_assignment_column][1] == all_assignments[i+1][2])  {
+                  check_for_duplicates++ 
+                  if (repeat_name == check_for_duplicates) {
+                    this_box.remove()
+                    delete all_assignments[i+1] 
+                    for (let a = 1; a < Object.keys(all_assignments).length+1; a++) {
+                      if (a > i) {
+                        all_assignments[a] = all_assignments[a+1];
+                        delete all_assignments[a+1];
+                      }
                     }
                   }
                 }
@@ -1854,6 +2140,8 @@ if (chromeless == ud) {
               "\u00d7",
               create_new_assignment 
             );
+            var determine_height = document.getElementsByClassName("new-pop-up-assignment")[0].offsetHeight
+            close_new_assignment.style.transform = "translate(250px,-"+String(determine_height-15)+"px)"
             close_new_assignment.addEventListener('click', () => {
               let delete_assigment = document.getElementsByClassName("new-pop-up-assignment");
               for (let i = 0; i < delete_assigment.length; i++) {
@@ -1988,6 +2276,8 @@ if (chromeless == ud) {
           newListItem
         );
         span.innerHTML = "\u00d7";
+        newListItem.setAttribute("draggable","true")
+        newListItem.classList.add("draggable")
       }
     }
   });
@@ -2010,6 +2300,8 @@ if (chromeless == ud) {
         toDoList
       );
       newListItem.innerHTML = toDoInput.value;
+      newListItem.setAttribute("draggable","true")
+      newListItem.classList.add("draggable")
       saveList.push(toDoInput.value);
       toDoInput.value = "";
       var span = create_element(
@@ -2036,7 +2328,7 @@ if (chromeless == ud) {
   toDoList.onclick = function (e) {
     if (e.target.tagName === "LI") {
       e.target.classList.toggle("checked");
-      if (e.target.className === "listItem checked") {
+      if (e.target.className === "listItem draggable checked") {
         checkList.push(
           Array.from(e.target.parentNode.children).indexOf(e.target)
         );
@@ -2048,21 +2340,21 @@ if (chromeless == ud) {
           1
         );
       }
-      chrome.storage.local.set({ checkList: checkList }).then(() => {});
+      chrome.storage.local.set({ 'checkList': checkList }).then(() => {});
     } else if (e.target.tagName === "SPAN") {
       checkList = [];
       saveCheckAmount = e.target.parentNode.parentNode.children.length;
       var saveChildrenAmount = e.target.parentNode.parentNode.children;
       e.target.parentElement.remove();
       for (var x = 0; x < saveCheckAmount - 1; x++) {
-        if (saveChildrenAmount[x].className === "listItem checked") {
+        if (saveChildrenAmount[x].className === "listItem draggable checked") {
           checkList.push(
             Array.from(saveChildrenAmount).indexOf(saveChildrenAmount[x])
           );
         }
       }
       e.target.parentElement.remove();
-      chrome.storage.local.set({ checkList: checkList }).then(() => {});
+      chrome.storage.local.set({ 'checkList': checkList }).then(() => {});
       var indexNum = saveList.indexOf(
         e.target.parentElement.innerHTML.replace(
           '<span class="close">×</span>',
@@ -2153,4 +2445,12 @@ window.addEventListener("load", (event) => {
       target_object[i][1]
     );
   }
-});
+  chrome.storage.local.get(["colorCoded"]).then((result) => {
+    if (result.colorCoded != ud) {
+      if (document.getElementById("color-coded-input") != ud) {
+        document.getElementById("color-coded-input").checked = result.colorCoded
+        color_coded_function()
+      }
+    }
+  })
+})
