@@ -1,6 +1,6 @@
 # VeraPlus
 
-A chrome extension to enchance your Veracross experinece
+A chrome extension to enchance your Veracross experinece, download at https://chromewebstore.google.com/detail/veraplus-customize-veracr/niakgglobhndmjnhjoadhlfgknjmikpn?hl=en
 
 ## Items Included
 
